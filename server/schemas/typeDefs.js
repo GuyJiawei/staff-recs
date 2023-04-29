@@ -56,3 +56,5 @@ const typeDefs = gql`
         rating: String!
     }
 `
+
+module.exports = typeDefs
