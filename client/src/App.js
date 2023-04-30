@@ -10,7 +10,7 @@ const client = new ApolloClient({
 
 function App() {
     return (
-        <ApolloProvider client={client}>
+    <ApolloProvider client={client}>
       {/* Wrap page elements in Router component to keep track of location state */}
       <Router>
         <div className="flex-column justify-flex-start min-100-vh">

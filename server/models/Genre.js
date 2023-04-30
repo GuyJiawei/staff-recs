@@ -1,6 +1,7 @@
-const { Schema, model, default: mongoose } = require('mongoose');
+const mongoose = require('mongoose');
+const { Schema } = require('mongoose');
 
-const genreSchema = new mongoose.Schema({
+const genreSchema = new Schema({
     name: {
       type: String,
       required: true,
