@@ -34,6 +34,7 @@ const typeDefs = gql`
     }
 
     type Query {
+        me: User
         getUser(id: ID!): User
         getUsers: [User]
         getGenre(id:ID!): Genre
