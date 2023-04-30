@@ -2,6 +2,10 @@ import React from 'react';
 import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import "./index.css";
+import LoginForm from './pages/LoginForm';
+import SignupForm from './pages/SignupForm';
+import SignupForm from './pages/Home';
+import SignupForm from './pages/Profile';
 
 const client = new ApolloClient({
     uri: '/graphql',
@@ -20,12 +24,20 @@ function App() {
               {/* Define routes to render different page components at different paths */}
               <Route 
                 path="/" 
-                element={<Home />} 
+                element={<LoginForm />} 
               />
               {/* Define a route that will take in variable data */}
               <Route 
-                path="/profiles/:profileId" 
-                element={<Profile />} 
+                path="/signup" 
+                element={<SignupForm />} 
+              />
+              <Route 
+                path="/home" 
+                element={<Home />} 
+              />
+              <Route 
+                path="/profile/:userId" 
+                element={<UserProfile />} 
               />
             </Routes>
           </div>
