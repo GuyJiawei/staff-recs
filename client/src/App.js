@@ -6,7 +6,7 @@ import LoginForm from './pages/LoginForm';
 import SignupForm from './pages/SignupForm';
 import MovieFeed from './pages/MovieFeed';
 import UserProfile from './pages/UserProfile';
-import MovieFeed from './pages/MovieFeed';
+import NavBar from './components/Navbar'
 
 const client = new ApolloClient({
     uri: '/graphql',
@@ -17,7 +17,7 @@ function App() {
     return (
     <ApolloProvider client={client}>
       <Router>
-          <Header />
+          <NavBar />
           <div className="container">
             <Routes>
               <Route 
@@ -38,7 +38,6 @@ function App() {
               />
             </Routes>
           </div>
-          <Footer />
       </Router>
     </ApolloProvider>
     )

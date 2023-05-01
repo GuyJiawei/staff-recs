@@ -1,5 +1,6 @@
 import React from 'react';
 import { useQuery, gql } from '@apollo/client';
+import { GET_MOVIES_BY_GENRES } from "../utils/mutations";
 
 const MovieFeed = ({ userGenres }) => {
     const { loading, error, data } = useQuery(GET_MOVIES_BY_GENRES, {
