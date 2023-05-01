@@ -35,12 +35,13 @@ const typeDefs = gql`
 
     type Query {
         me: User
-        getUser(id: ID!): User
+        getUserProfile(id: ID!): User
         getUsers: [User]
         getGenre(id:ID!): Genre
         getGenres: [Genre]
         getMovie(id:ID!): Movie
         getMovies: [Movie]
+        getMoviesByGenres(genres: [String!]!): [Movie!]
     }
 
     type Auth {
@@ -55,7 +56,10 @@ const typeDefs = gql`
         updateGenre(id: ID!, name: String, movies: [ID]): Genre
         createMovie(title: String!, release_year: Int!, genre: ID!, poster_url: String!): Movie
         updateMovie(id: ID!, title: String, release_year: Int, genre: ID, poster_url: String!, ratings: [RatingInput]): Movie
+        updateRating(userId: ID!, movieId: ID!, rating: String!): Rating
         login(email: String!, password: String!): Auth
+        addFavoriteMovie(userId: ID!, movieId: ID!): User!
+        removeFavoriteMovie(userId: ID!, movieId: ID!): User!
     }
 
     input RatingInput {
