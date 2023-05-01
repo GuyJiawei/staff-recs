@@ -23,3 +23,16 @@ export const CREATE_USER = gql`
     }
   }
 `;
+
+export const GET_MOVIES_BY_GENRES = gql`
+  query GetMoviesByGenres($genres: [String!]!) {
+    getMoviesByGenres(genres: $genres) {
+      id
+      title
+      genre
+      releaseDate
+      description
+      posterUrl
+    }
+  }
+`;

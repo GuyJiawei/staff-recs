@@ -26,8 +26,9 @@ const resolvers = {
       return User.find();
     },
 
-    user: async (parent, { userId }) => {
-      return User.findOne({ _id: userId });
+    getUserProfile: async (_, { id }) => {
+      const user = await User.findById(id).populate('favoriteMovies');
+      return user;
     },
 
     genres: async () => {
@@ -69,6 +70,71 @@ const resolvers = {
       const token = signToken(user);
       return { token, user };
     },
+    updateRating: async (parent, args, { User, Movie, Rating }, info) => {
+      const { userId, movieId, rating } = args;
+  
+      const user = await User.findById(userId);
+      if (!user) {
+        throw new Error('User not found');
+      }
+  
+      const movie = await Movie.findById(movieId);
+      if (!movie) {
+        throw new Error('Movie not found');
+      }
+  
+      const userRating = await Rating.findOne({
+        user_id: userId,
+        movie_id: movieId,
+      });
+  
+      if (!userRating) {
+        const newRating = new Rating({
+          user_id: userId,
+          movie_id: movieId,
+          rating,
+        });
+        await newRating.save();
+        user.ratings.push(newRating);
+        await user.save();
+        movie.ratings.push(newRating);
+        await movie.save();
+        return newRating;
+      }
+  
+      userRating.rating = rating;
+      await userRating.save();
+      return userRating;
+    },
+    
+    addFavoriteMovie: async (_, { userId, movieId }) => {
+      const user = await User.findByIdAndUpdate(
+        userId,
+        { $addToSet: { favoriteMovies: movieId } },
+        { new: true }
+      ).populate('favoriteMovies');
+
+      if (!user) {
+        throw new Error('User not found');
+      }
+
+      return user;
+    },
+
+    removeFavoriteMovie: async (_, { userId, movieId }) => {
+      const user = await User.findByIdAndUpdate(
+        userId,
+        { $pull: { favoriteMovies: movieId } },
+        { new: true }
+      ).populate('favoriteMovies');
+
+      if (!user) {
+        throw new Error('User not found');
+      }
+
+      return user;
+    },
+    
   },
 
   Date: dateScalar,
