@@ -7,7 +7,10 @@ export const QUERY_ME = gql`
       name
       userName
       email
+      savedGenres {
+        genreId
+        name
+      }
       }
     }
-  }
 `;
