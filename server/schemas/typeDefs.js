@@ -1,13 +1,14 @@
 const { gql } = require('apollo-server-express');
 
 const typeDefs = gql`
+    scalar Date 
     type User {
         _id: ID!
         name: String!
         userName: String!
         email: String!
         password: String!
-        preferred_genres: [String]
+        savedGenres: [String]
         ratings: [Rating]
     }
 
@@ -35,12 +36,13 @@ const typeDefs = gql`
 
     type Query {
         me: User
+        users: [User]
+        user: User
         getUserProfile(id: ID!): User
-        getUsers: [User]
-        getGenre(id:ID!): Genre
-        getGenres: [Genre]
-        getMovie(id:ID!): Movie
-        getMovies: [Movie]
+        genre(id:ID!): Genre
+        genres: [Genre]
+        movie(id:ID!): Movie
+        movies: [Movie]
         getMoviesByGenres(genres: [String!]!): [Movie!]
     }
 
@@ -50,8 +52,8 @@ const typeDefs = gql`
     }
 
     type Mutation {
-        createUser(username: String!, email: String!, password: String!): Auth
-        updateUser(id: ID!, username: String, email: String, password: String, preferred_genres: [String], ratings: [RatingInput]): User
+        createUser(name: String!, userName: String!, email: String!, password: String!): Auth
+        updateUser(id: ID!, userName: String, email: String, password: String, preferred_genres: [String], ratings: [RatingInput]): User
         createGenre(name: String!): Genre
         updateGenre(id: ID!, name: String, movies: [ID]): Genre
         createMovie(title: String!, release_year: Int!, genre: ID!, poster_url: String!): Movie
@@ -60,12 +62,20 @@ const typeDefs = gql`
         login(email: String!, password: String!): Auth
         addFavoriteMovie(userId: ID!, movieId: ID!): User!
         removeFavoriteMovie(userId: ID!, movieId: ID!): User!
+        createUserGenre(genreData: genreInput!): User
+        deleteUserGenre(genreId: String!): User
+        updateUserInfo(userId: ID!, name: String!, userName: String!, password: String!, password: String!): User
     }
 
     input RatingInput {
         movie_id: ID!
         user_id: ID!
         rating: String!
+    }
+
+    input genreInput {
+        id: ID!
+        name: String!
     }
 `
 
