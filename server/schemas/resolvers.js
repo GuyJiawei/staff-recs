@@ -133,74 +133,106 @@ const resolvers = {
       }
       return updatedUser;
     },
-    // Deprecated
-    updateRating: async (parent, args, { User, Movie, Rating }, info) => {
-      const { userId, movieId, rating } = args;
-  
-      const user = await User.findById(userId);
+
+    updateUserInfo: async (parent, { id, name, userName, email, password }, context) => {
+      const user = await User.findOne({ _id: id });
+    
       if (!user) {
-        throw new Error('User not found');
+        throw new Error("Couldn't find user with this id!");
       }
-  
-      const movie = await Movie.findById(movieId);
-      if (!movie) {
-        throw new Error('Movie not found');
+    
+      if (name) {
+        user.name = name;
       }
-  
-      const userRating = await Rating.findOne({
-        user_id: userId,
-        movie_id: movieId,
-      });
-  
-      if (!userRating) {
-        const newRating = new Rating({
-          user_id: userId,
-          movie_id: movieId,
-          rating,
-        });
-        await newRating.save();
-        user.ratings.push(newRating);
-        await user.save();
-        movie.ratings.push(newRating);
-        await movie.save();
-        return newRating;
+    
+      if (userName) {
+        user.userName = userName;
       }
-  
-      userRating.rating = rating;
-      await userRating.save();
-      return userRating;
+    
+      if (email) {
+        user.email = email;
+      }
+    
+      if (password) {
+        user.password = password;
+      }
+    
+      const updatedUser = await user.save();
+    
+      return updatedUser;
     },
+    
+    
     // Deprecated
-    addFavoriteMovie: async (_, { userId, movieId }) => {
-      const user = await User.findByIdAndUpdate(
-        userId,
-        { $addToSet: { favoriteMovies: movieId } },
-        { new: true }
-      ).populate('favoriteMovies');
-
-      if (!user) {
-        throw new Error('User not found');
-      }
-
-      return user;
-    },
+    // updateRating: async (parent, args, { User, Movie, Rating }, info) => {
+    //   const { userId, movieId, rating } = args;
+  
+    //   const user = await User.findById(userId);
+    //   if (!user) {
+    //     throw new Error('User not found');
+    //   }
+  
+    //   const movie = await Movie.findById(movieId);
+    //   if (!movie) {
+    //     throw new Error('Movie not found');
+    //   }
+  
+    //   const userRating = await Rating.findOne({
+    //     user_id: userId,
+    //     movie_id: movieId,
+    //   });
+  
+    //   if (!userRating) {
+    //     const newRating = new Rating({
+    //       user_id: userId,
+    //       movie_id: movieId,
+    //       rating,
+    //     });
+    //     await newRating.save();
+    //     user.ratings.push(newRating);
+    //     await user.save();
+    //     movie.ratings.push(newRating);
+    //     await movie.save();
+    //     return newRating;
+    //   }
+  
+    //   userRating.rating = rating;
+    //   await userRating.save();
+    //   return userRating;
+    // },
     // Deprecated
-    removeFavoriteMovie: async (_, { userId, movieId }) => {
-      const user = await User.findByIdAndUpdate(
-        userId,
-        { $pull: { favoriteMovies: movieId } },
-        { new: true }
-      ).populate('favoriteMovies');
+    // addFavoriteMovie: async (_, { userId, movieId }) => {
+    //   const user = await User.findByIdAndUpdate(
+    //     userId,
+    //     { $addToSet: { favoriteMovies: movieId } },
+    //     { new: true }
+    //   ).populate('favoriteMovies');
 
-      if (!user) {
-        throw new Error('User not found');
-      }
+    //   if (!user) {
+    //     throw new Error('User not found');
+    //   }
 
-      return user;
-    },
-    // Create, Update, Delete
-    // Create genre (Assigning a genre to their profile) User.findOneandUpdate( $addToSet )
-    // Delete genre (Remove a genre from the user's profile)
+    //   return user;
+    // },
+    // Deprecated
+    // removeFavoriteMovie: async (_, { userId, movieId }) => {
+    //   const user = await User.findByIdAndUpdate(
+    //     userId,
+    //     { $pull: { favoriteMovies: movieId } },
+    //     { new: true }
+    //   ).populate('favoriteMovies');
+
+    //   if (!user) {
+    //     throw new Error('User not found');
+    //   }
+
+    //   return user;
+    // },
+
+
+    // Create, Update, Delete 
+    // Create genre (Assigning a genre to their profile) User.findOneandUpdate( $addToSet ) DONE
+    // Delete genre (Remove a genre from the user's profile) DONE
     // Update User (Only update email/password/username)
     // seed/bulk create from the api to create the genres
     // seed/bulk create from the api to create the movie
