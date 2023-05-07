@@ -42,8 +42,8 @@ const GenreSelectionPage = ({ userId }) => {
   ];
 
   const handleGenreClick = (genre) => {
-    if (savedGenres.includes(genre)) {
-      setSavedGenres(savedGenres.filter((g) => g !== genre));
+    if (savedGenres.some((g) => g.genreId === genre.genreId)) {
+      setSavedGenres(savedGenres.filter((g) => g.genreId !== genre.genreId));
     } else {
       setSavedGenres([...savedGenres, genre]);
     }
@@ -62,21 +62,22 @@ const GenreSelectionPage = ({ userId }) => {
 
   return (
     <div>
-      {/* ... */}
       <div>
         {genres.map((genre) => (
-          <button
-            key={genre.genreId}
-            onClick={() => handleGenreClick(genre)}
-            style={{
-              backgroundColor: savedGenres.includes(genre) ? 'lightblue' : '',
-            }}
-          >
+          <label key={genre.genreId} className="genre-label">
+            <input
+              type="checkbox"
+              value={genre.genreId}
+              onChange={() => handleGenreClick(genre)}
+              checked={savedGenres.some(savedGenre => savedGenre.genreId === genre.genreId)}
+            />
             {genre.name}
-          </button>
+          </label>
         ))}
       </div>
-      <button onClick={handleSaveGenres}>Save and Show Movies</button>
+      <button className="save-show-movies-button" onClick={handleSaveGenres}>
+        Save and Show Movies
+      </button>
     </div>
   );
 };

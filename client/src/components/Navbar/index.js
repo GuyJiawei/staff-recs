@@ -9,7 +9,7 @@ function NavBar() {
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
       <Link className="navbar-brand" to="/">
-        Navbar
+        <img src={logo} alt='StaffRecs Logo'/>
       </Link>
       <button
         className="navbar-toggler"
