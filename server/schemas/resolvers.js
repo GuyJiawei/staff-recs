@@ -79,6 +79,15 @@ const resolvers = {
     movie: async (parent, { movieId }) => {
       return Movie.findOne({ _id: movieId });
     },
+    getUserGenres: async (_, { id }) => {
+      try {
+        const user = await User.findById(id);
+        return user.savedGenres;
+      } catch (error) {
+        console.error('Error fetching user genres:', error);
+        throw error;
+      }
+    }
     // Future Development: Front end API, pass user liked genres in the parameters
   },
   Mutation: {

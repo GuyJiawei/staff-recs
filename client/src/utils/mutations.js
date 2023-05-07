@@ -13,8 +13,8 @@ export const LOGIN_USER = gql`
 `;
 
 export const CREATE_USER = gql`
-  mutation createUser($username: String!, $email: String!, $password: String!) {
-    createUser(username: $username, email: $email, password: $password) {
+  mutation createUser($name: String!, $username: String!, $email: String!, $password: String!) {
+    createUser(name: $name, username: $username, email: $email, password: $password) {
       token
       user {
         _id
@@ -51,4 +51,22 @@ mutation UpdateUserInfo($id: ID!, $name: String, $userName: String, $email: Stri
     password
   }
 }
+`;
+
+export const GET_USER_PROFILE = gql`
+query GetUserProfile($userId: ID!) {
+  getUserProfile(id: $userId) {
+    id
+    name
+    userName
+    email
+    savedGenres
+  }
+}
+`;
+
+export const GET_USER_GENRES = gql`
+  query GetUserGenres($userId: ID!) {
+    getUserGenres(id: $userId)
+  }
 `;

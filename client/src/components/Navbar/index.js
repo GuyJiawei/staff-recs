@@ -1,23 +1,55 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import logo from '../../assets/LogoPlaceholder.png';
+import Auth from '../../utils/auth';
 
-function NavBar({ currentPage, handlePageChange }) {
-    return (
-      <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">Navbar</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-          <div class="navbar-nav">
-            <a class="nav-item nav-link active" href="#">Home <span class="sr-only">(current)</span></a>
-            <a class="nav-item nav-link" href="#">Profile</a>
-            <a class="nav-item nav-link" href="#">Logout</a>
-            <a class="nav-item nav-link disabled" href="#">Disabled</a>
-          </div>
+function NavBar() {
+  const loggedIn = Auth.loggedIn();
+
+  return (
+    <nav className="navbar navbar-expand-lg navbar-light bg-light">
+      <Link className="navbar-brand" to="/">
+        Navbar
+      </Link>
+      <button
+        className="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarNavAltMarkup"
+        aria-controls="navbarNavAltMarkup"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span className="navbar-toggler-icon"></span>
+      </button>
+      <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div className="navbar-nav">
+          {loggedIn ? (
+            <>
+              <Link className="nav-item nav-link" to="/profile">
+                Profile
+              </Link>
+              <Link className="nav-item nav-link" to="/moviefeed">
+                Movie Feed
+              </Link>
+              <Link className="nav-item nav-link" to="/logout" onClick={Auth.logout}>
+                Logout
+              </Link>
+            </>
+          ) : (
+            <>
+              <Link className="nav-item nav-link" to="/">
+                Home
+              </Link>
+              <Link className="nav-item nav-link" to="/signup">
+                Signup
+              </Link>
+            </>
+          )}
         </div>
-      </nav>
-    );
+      </div>
+    </nav>
+  );
 }
 
 export default NavBar;
