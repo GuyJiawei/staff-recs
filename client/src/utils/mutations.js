@@ -52,3 +52,21 @@ mutation UpdateUserInfo($id: ID!, $name: String, $userName: String, $email: Stri
   }
 }
 `;
+
+export const GET_USER_PROFILE = gql`
+query GetUserProfile($userId: ID!) {
+  getUserProfile(id: $userId) {
+    id
+    name
+    userName
+    email
+    savedGenres
+  }
+}
+`;
+
+export const GET_USER_GENRES = gql`
+  query GetUserGenres($userId: ID!) {
+    getUserGenres(id: $userId)
+  }
+`;

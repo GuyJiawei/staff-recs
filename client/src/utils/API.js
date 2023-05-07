@@ -73,4 +73,4 @@ const getGenreList = async () => {
   }
 };
 
-export { getMoviesByGenre, getGenreList };
+export { getMoviesByGenres, getGenreList };

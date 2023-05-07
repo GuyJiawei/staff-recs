@@ -44,6 +44,7 @@ const typeDefs = gql`
         movie(id:ID!): Movie
         movies: [Movie]
         getMoviesByGenres(genres: [String!]!): [Movie!]
+        getUserGenres(id: ID!): [String!]
     }
 
     type Auth {
