@@ -50,11 +50,11 @@ const SignupForm = () => {
     <div className="container">
       <div className="row">
         <div className="col-lg-10 col-xl-9 mx-auto">
-          <div className="card flex-row my-5 border-0 shadow rounded-3 overflow-hidden">
+          <div id='signup-card' className="card flex-row my-5 border-0 shadow rounded-3 overflow-hidden">
             <div className="card-img-left d-none d-md-flex">
               {/* <!-- Background image for card set in CSS! --> */}
             </div>
-            <div className="card-body p-4 p-sm-5">
+            <div id='signup-card' className="card-body p-4 p-sm-5">
               <h5 className="card-title text-center mb-5 fw-light fs-5">Signup</h5>
               <form noValidate onSubmit={handleFormSubmit} validated={validated.toString()}>
 
