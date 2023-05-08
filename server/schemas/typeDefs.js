@@ -5,7 +5,7 @@ const typeDefs = gql`
     type User {
         _id: ID!
         name: String!
-        userName: String!
+        username: String!
         email: String!
         password: String!
         savedGenres: [String]
@@ -14,7 +14,7 @@ const typeDefs = gql`
     input UserInput {
         _id: ID!
         name: String!
-        userName: String!
+        username: String!
         email: String!
         savedGenres: [String]
     }
@@ -59,7 +59,7 @@ const typeDefs = gql`
     }
 
     type Mutation {
-        createUser(name: String!, userName: String!, email: String!, password: String!): Auth
+        createUser(name: String!, username: String!, email: String!, password: String!): Auth
         createGenre(name: String!): Genre
         updateGenre(id: ID!, name: String, movies: [ID]): Genre
         createMovie(title: String!, release_year: Int!, genre: ID!, poster_url: String!): Movie
@@ -71,7 +71,7 @@ const typeDefs = gql`
         createUserGenre(genreData: genreInput!): User
         deleteUserGenre(genreId: String!): User
         updateUser(input: UserInput!): User
-        updateUserInfo(userId: ID!, name: String!, userName: String!, password: String!): User
+        updateUserInfo(userId: ID!, name: String!, username: String!, password: String!): User
     }
 
     input RatingInput {

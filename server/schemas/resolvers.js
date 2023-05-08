@@ -91,9 +91,10 @@ const resolvers = {
     // Future Development: Front end API, pass user liked genres in the parameters
   },
   Mutation: {
-    createUser: async (parent, { name, userName, email, password }) => {
-      // Your FE form needs name, userName, email, password
-      const user = await User.create({ name, userName, email, password });
+    createUser: async (parent, { name, username, email, password }) => {
+      // Your FE form needs name, username, email, password
+      console.log(name,username, email, password)
+      const user = await User.create({ name, username, email, password });
       const token = signToken(user);
 
       return { token, user };
@@ -143,7 +144,7 @@ const resolvers = {
       return updatedUser;
     },
 
-    updateUserInfo: async (parent, { id, name, userName, email, password }, context) => {
+    updateUserInfo: async (parent, { id, name, username, email, password }, context) => {
       const user = await User.findOne({ _id: id });
     
       if (!user) {
@@ -154,8 +155,8 @@ const resolvers = {
         user.name = name;
       }
     
-      if (userName) {
-        user.userName = userName;
+      if (username) {
+        user.username = username;
       }
     
       if (email) {
