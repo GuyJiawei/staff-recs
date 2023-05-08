@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 
 const GenreSelectionPage = ({ userId }) => {
   const [savedGenres, setSavedGenres] = useState([]);
-  const [createUserGenres] = useMutation(CREATE_USER_GENRE);
+  const [updateUser] = useMutation(CREATE_USER_GENRE);
   const navigate = useNavigate();
 
   const genres = [
@@ -51,9 +51,13 @@ const GenreSelectionPage = ({ userId }) => {
 
   const handleSaveGenres = async () => {
     try {
-      await createUserGenres({
-        variables: { userId, genres: savedGenres },
+      const userId = Auth.getProfile().data._id;
+      const genreIds = savedGenres.map((genre) => genre.genreId);
+
+      await updateUser({
+        variables: { input: { _id: userId, savedGenres: genreIds } },
       });
+
       navigate('/movie-feed');
     } catch (error) {
       console.error('Error updating user genres:', error);
