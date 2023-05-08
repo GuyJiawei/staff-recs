@@ -55,7 +55,7 @@ function App() {
             <Route path="/signup" element={<SignupForm />} />
             <Route path="/genreSelection" element={<GenreSelectionPage />} />
             <Route path="/moviefeed" element={<MovieFeed />} />
-            <Route path="/profile/:userId" element={<UserProfile />} />
+            <Route path="/profile/" element={<UserProfile />} />
           </Routes>
         </div>
       </Router>

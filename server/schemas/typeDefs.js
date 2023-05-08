@@ -18,6 +18,10 @@ const typeDefs = gql`
         email: String!
         savedGenres: [String]
     }
+    
+    input SelectedGenres {
+        savedGenres: [String]
+    }
 
     type Genre {
         id: ID!
@@ -70,7 +74,7 @@ const typeDefs = gql`
         removeFavoriteMovie(userId: ID!, movieId: ID!): User!
         createUserGenre(genreData: genreInput!): User
         deleteUserGenre(genreId: String!): User
-        updateUser(input: UserInput!): User
+        updateUser(input: [String!]): User
         updateUserInfo(userId: ID!, name: String!, username: String!, password: String!): User
     }
 

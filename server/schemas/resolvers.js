@@ -176,7 +176,7 @@ const resolvers = {
       if (context.user) {
         const updatedUser = await User.findByIdAndUpdate(
           { _id: context.user._id },
-          input,
+          { $set: { savedGenres: input }},
           { new: true, runValidators: true }
         );
 

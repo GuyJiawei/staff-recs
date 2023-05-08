@@ -1,20 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import { useQuery, gql } from '@apollo/client';
 import { getMoviesByGenres } from '../utils/API';
-import { GET_USER_GENRES } from '../utils/mutations';
+import { QUERY_ME } from '../utils/queries';
+import Auth from '../utils/auth';
 
 
-const MovieFeed = ({ userId }) => {
+const MovieFeed = () => {
+  const userId = Auth.getProfile().data._id;
   const [movies, setMovies] = useState([]);
-  const { data, refetch } = useQuery(GET_USER_GENRES, {
-    variables: { userId },
-  });
+  const { data, loading} = useQuery(QUERY_ME);
+  const savedGenres = data?.me.savedGenres.join(',');
 
   const fetchMovies = async () => {
-    if (!data || !data.user) return;
 
     try {
-      const movieData = await getMoviesByGenres(data.user.genres);
+      const movieData = await getMoviesByGenres(savedGenres);
       setMovies(movieData.results);
     } catch (error) {
       console.error('Error fetching movie suggestions:', error);
@@ -29,7 +29,7 @@ const MovieFeed = ({ userId }) => {
     fetchMovies();
   };
 
-  if (!data || !data.user) return <p>Loading...</p>;
+  if (!movies || !data) return <p>Loading...</p>;
 
   return (
     <div>

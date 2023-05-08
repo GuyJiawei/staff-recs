@@ -51,14 +51,15 @@ const GenreSelectionPage = ({ userId }) => {
 
   const handleSaveGenres = async () => {
     try {
-      const userId = Auth.getProfile().data._id;
+      // const userId = Auth.getProfile().data._id;
       const genreIds = savedGenres.map((genre) => genre.genreId);
+      console.log(genreIds)
 
       await updateUser({
-        variables: { input: { _id: userId, savedGenres: genreIds } },
+        variables: { input: genreIds },
       });
 
-      navigate('/movie-feed');
+      navigate('/moviefeed');
     } catch (error) {
       console.error('Error updating user genres:', error);
     }

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Container, Card, Form, Button, Alert } from 'react-bootstrap';
 import { useMutation } from "@apollo/client";
 import { CREATE_USER } from "../utils/mutations";
@@ -13,7 +14,7 @@ const SignupForm = () => {
   const [showAlert, setShowAlert] = useState(false);
 
   const [createUser, { error, data }] = useMutation(CREATE_USER);
-
+  const navigate = useNavigate();
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setUserFormData({ ...userFormData, [name]: value });
@@ -35,6 +36,7 @@ const SignupForm = () => {
         console.log(data);
         const token = data.createUser.token;
         Auth.login(data.createUser.token);
+        navigate('/genreselection');
       } catch (err) {
         console.error(err);
         setShowAlert(true);

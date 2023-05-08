@@ -40,7 +40,7 @@ const getMoviesByGenres = async (genreIds, page = 1) => {
   ];
 
   try {
-    const genreIdString = genreIds.join(',');
+    const genreIdString = genreIds;
     const response = await axios.get(`${BASE_URL}/discover/movie`, {
       params: {
         api_key: API_KEY,
