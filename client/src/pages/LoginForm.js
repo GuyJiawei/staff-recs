@@ -32,12 +32,12 @@ const LoginForm = () => {
     try {
       const { data } = await loginUser({ variables: { ...userFormData } });
       console.log(data);
-      if (data && data.loginUser) {
-        const token = data.loginUser.token;
-      const user = data.loginUser.user;
-      Auth.login(data.loginUser.token);
+      // if (data && data.loginUser) {
+      //   const token = data.loginUser.token;
+      // const user = data.loginUser.user;
+      Auth.login(data.login.token);
       navigate('/moviefeed');
-      }
+      // }
     } catch (err) {
       console.error(err);
       setShowAlert(true);
@@ -85,8 +85,6 @@ const LoginForm = () => {
 
                   <div className="d-grid gap-2">
                     <button className="btn btn-primary btn-login text-uppercase fw-bold" type="submit">Sign in</button>
-                    <p>Don't have an account?</p>
-                    <button className="btn btn-secondary text-uppercase fw-bold" type="button">Sign up</button>
                   </div>
                 </form>
               </div>

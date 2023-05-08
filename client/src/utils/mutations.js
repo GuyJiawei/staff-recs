@@ -25,11 +25,13 @@ export const CREATE_USER = gql`
 `;
 
 export const CREATE_USER_GENRE = gql`
-  mutation updateUser($input: UserInput!) {
-    updatedUser(input: $input) {
+  mutation UpdateUser($input: [String!]) {
+    updateUser(input: $input) {
       _id
+      name
       username
       email
+      password
       savedGenres
     }
   }

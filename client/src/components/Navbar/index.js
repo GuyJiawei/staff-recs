@@ -1,29 +1,23 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import logo from '../../assets/LogoPlaceholder.png';
 import Auth from '../../utils/auth';
 
 function NavBar() {
-  const loggedIn = Auth.loggedIn();
+  const [loggedIn, setLoggedIn] = useState(Auth.loggedIn());
+
+  const handleLogout = () => {
+    Auth.logout();
+    setLoggedIn(false);
+  };
 
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
       <div className="container">
         <Link className="navbar-brand" to="/">
-          <img src={logo} alt='StaffRecs Logo' height="30" />
+          <img src={logo} alt='StaffRecs Logo' height="50" />
         </Link>
-        <button
-          className="navbar-toggler"
-          type="button"
-          data-toggle="collapse"
-          data-target="#navbarNavAltMarkup"
-          aria-controls="navbarNavAltMarkup"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span className="navbar-toggler-icon"></span>
-        </button>
-        <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div className="navbar-collapse" id="navbarNavAltMarkup">
           <div className="navbar-nav ml-auto">
             {loggedIn ? (
               <>
@@ -33,7 +27,7 @@ function NavBar() {
                 <Link className="nav-item nav-link" to="/moviefeed">
                   Movie Feed
                 </Link>
-                <Link className="nav-item nav-link" to="/logout" onClick={Auth.logout}>
+                <Link className="nav-item nav-link" to="/logout" onClick={handleLogout}>
                   Logout
                 </Link>
               </>
@@ -55,4 +49,3 @@ function NavBar() {
 }
 
 export default NavBar;
-
