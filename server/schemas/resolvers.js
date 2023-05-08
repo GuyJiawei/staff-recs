@@ -170,9 +170,26 @@ const resolvers = {
     
       return updatedUser;
     },
+
+    updateUser: async (_, { input }, context) => {
+      if (context.user) {
+        const updatedUser = await User.findByIdAndUpdate(
+          { _id: context.user._id },
+          input,
+          { new: true, runValidators: true }
+        );
+
+        return updatedUser;
+    }
+    throw new AuthenticationError("You need to be logged in to update user data.");
+    },
     
-    
-    // Deprecated
+  },
+};
+
+  module.exports = resolvers
+
+      // Deprecated
     // updateRating: async (parent, args, { User, Movie, Rating }, info) => {
     //   const { userId, movieId, rating } = args;
   
@@ -246,8 +263,3 @@ const resolvers = {
     // seed/bulk create from the api to create the genres
     // seed/bulk create from the api to create the movie
     // Do not add to database unless a user has added it to their favorites
-    
-  },
-}
-
-  module.exports = resolvers
