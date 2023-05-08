@@ -66,7 +66,7 @@ const GenreSelectionPage = ({ userId }) => {
 
   return (
     <div>
-      <div>
+      <div style={{ display: "flex", flexDirection: "column" }}>
         {genres.map((genre) => (
           <label key={genre.genreId} className="genre-label">
             <input

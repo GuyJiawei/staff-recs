@@ -8,11 +8,11 @@ const SignupForm = () => {
   // set initial form state
   const [userFormData, setUserFormData] = useState({ name: '', username: '', email: '', password: '' });
   // set state for form validation
-  const [validated, setValidated] = useState(false);
+  // const [validated, setValidated] = useState(false);
   // set state for alert
   const [showAlert, setShowAlert] = useState(false);
 
-  const [createUser, { error }] = useMutation(CREATE_USER);
+  const [createUser, { error, data }] = useMutation(CREATE_USER);
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -24,15 +24,17 @@ const SignupForm = () => {
 
     // check if form has everything (as per react-bootstrap docs)
     const form = event.currentTarget;
-    if (form.checkValidity() === false) {
+    // if (form.checkValidity() === false) {
       event.preventDefault();
+      console.log(userFormData)
       event.stopPropagation();
-      setValidated(true);
-    } else {
+     // setValidated(true);
+    // } else {
       try {
-        const { data } = await createUser({ variables: { ...userFormData } });
-        const token = data.addUser.token;
-        Auth.login(token);
+        const { data }  = await createUser({ variables: { ...userFormData } });
+        console.log(data);
+        const token = data.createUser.token;
+        Auth.login(data.createUser.token);
       } catch (err) {
         console.error(err);
         setShowAlert(true);
@@ -43,14 +45,14 @@ const SignupForm = () => {
         email: '',
         password: '',
       });
-    }
+    // }
   };
 
   return (
     <Container className="d-flex justify-content-center mt-5">
       <Card className="shadow p-4 p-sm-5" style={{ minWidth: '400px', maxWidth: '600px', minHeight: '700px', maxHeight: '1000px' }}>
         <h5 className="card-title text-center mb-5 fw-light fs-5">Signup</h5>
-        <Form noValidate onSubmit={handleFormSubmit} validated={validated ? "true" : undefined}>
+        <Form onSubmit={handleFormSubmit}>
 
           <Form.Group className="mb-3">
             <Form.Label>Name</Form.Label>

@@ -7,10 +7,12 @@ import './LoginForm.css'
 
 const LoginForm = () => {
   const [userFormData, setUserFormData] = useState({ email: '', password: '' });
-  const [validated] = useState(false);
+  // const [validated] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
 
-  const [loginUser, { error }] = useMutation(LOGIN_USER);
+  const [loginUser, { error, data }] = useMutation(LOGIN_USER);
+
+  const navigate = useNavigate();
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -22,33 +24,29 @@ const LoginForm = () => {
 
     // check if form has everything (as per react-bootstrap docs)
     const form = event.currentTarget;
-    if (form.checkValidity() === false) {
+    // if (form.checkValidity() === false) {
       event.preventDefault();
       event.stopPropagation();
-    }
+    // }
 
     try {
       const { data } = await loginUser({ variables: { ...userFormData } });
-
-      const token = data.login.token;
-      const user = data.login.user;
-      Auth.login(token);
+      console.log(data);
+      if (data && data.loginUser) {
+        const token = data.loginUser.token;
+      const user = data.loginUser.user;
+      Auth.login(data.loginUser.token);
+      navigate('/moviefeed');
+      }
     } catch (err) {
       console.error(err);
       setShowAlert(true);
     }
 
     setUserFormData({
-      username: '',
       email: '',
       password: '',
     });
-  };
-
-  const navigate = useNavigate();
-
-  const navigateToSignup = () => {
-    navigate('/signup');
   };
 
   return (
@@ -56,10 +54,10 @@ const LoginForm = () => {
       <div className="login-page">
         <div className="container login-container" >
           <div className="col-sm-9 col-md-7 col-lg-5 mx-auto" >
-            <div className="card border-0 shadow rounded-3 my-5" style={{ minWidth: '400px', maxWidth: '600px', minHeight: '600px', maxHeight: '1000px' }}>
+            <div className="card border-0 shadow rounded-3 my-5" style={{ minWidth: '400px', maxWidth: '600px', minHeight: '500px', maxHeight: '1000px' }}>
               <div id='login-card' className="card-body p-4 p-sm-5">
                 <h5 className="card-title text-center mb-5 fw-light fs-5">Sign In</h5>
-                <form noValidate validated={validated} onSubmit={handleFormSubmit}>
+                <form onSubmit={handleFormSubmit}>
                   <div className="form-floating mb-3">
                     <input
                       type="email"
@@ -88,7 +86,7 @@ const LoginForm = () => {
                   <div className="d-grid gap-2">
                     <button className="btn btn-primary btn-login text-uppercase fw-bold" type="submit">Sign in</button>
                     <p>Don't have an account?</p>
-                    <button className="btn btn-secondary text-uppercase fw-bold" type="button" onClick={navigateToSignup}>Sign up</button>
+                    <button className="btn btn-secondary text-uppercase fw-bold" type="button">Sign up</button>
                   </div>
                 </form>
               </div>

@@ -18,7 +18,7 @@ function UserProfile() {
 
   return (
     <div className="container">
-      <h2>{user.userName}'s Profile</h2>
+      <h2>{user.username}'s Profile</h2>
       <h3>Genres</h3>
       <ul>
         {user.genres.map((genre) => (
