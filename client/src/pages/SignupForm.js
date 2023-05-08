@@ -48,9 +48,9 @@ const SignupForm = () => {
 
   return (
     <Container className="d-flex justify-content-center mt-5">
-      <Card className="shadow p-4 p-sm-5" style={{ minWidth: '400px', maxWidth: '600px' }}>
+      <Card className="shadow p-4 p-sm-5" style={{ minWidth: '400px', maxWidth: '600px', minHeight: '700px', maxHeight: '1000px' }}>
         <h5 className="card-title text-center mb-5 fw-light fs-5">Signup</h5>
-        <Form noValidate onSubmit={handleFormSubmit} validated={validated}>
+        <Form noValidate onSubmit={handleFormSubmit} validated={validated ? "true" : undefined}>
 
           <Form.Group className="mb-3">
             <Form.Label>Name</Form.Label>
