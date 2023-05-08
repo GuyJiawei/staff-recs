@@ -7,45 +7,47 @@ function NavBar() {
   const loggedIn = Auth.loggedIn();
 
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-light">
-      <Link className="navbar-brand" to="/">
-        <img src={logo} alt='StaffRecs Logo'/>
-      </Link>
-      <button
-        className="navbar-toggler"
-        type="button"
-        data-toggle="collapse"
-        data-target="#navbarNavAltMarkup"
-        aria-controls="navbarNavAltMarkup"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
-        <span className="navbar-toggler-icon"></span>
-      </button>
-      <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
-        <div className="navbar-nav">
-          {loggedIn ? (
-            <>
-              <Link className="nav-item nav-link" to="/profile">
-                Profile
-              </Link>
-              <Link className="nav-item nav-link" to="/moviefeed">
-                Movie Feed
-              </Link>
-              <Link className="nav-item nav-link" to="/logout" onClick={Auth.logout}>
-                Logout
-              </Link>
-            </>
-          ) : (
-            <>
-              <Link className="nav-item nav-link" to="/">
-                Home
-              </Link>
-              <Link className="nav-item nav-link" to="/signup">
-                Signup
-              </Link>
-            </>
-          )}
+    <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+      <div className="container">
+        <Link className="navbar-brand" to="/">
+          <img src={logo} alt='StaffRecs Logo' height="30" />
+        </Link>
+        <button
+          className="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarNavAltMarkup"
+          aria-controls="navbarNavAltMarkup"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span className="navbar-toggler-icon"></span>
+        </button>
+        <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
+          <div className="navbar-nav ml-auto">
+            {loggedIn ? (
+              <>
+                <Link className="nav-item nav-link" to="/profile">
+                  Profile
+                </Link>
+                <Link className="nav-item nav-link" to="/moviefeed">
+                  Movie Feed
+                </Link>
+                <Link className="nav-item nav-link" to="/logout" onClick={Auth.logout}>
+                  Logout
+                </Link>
+              </>
+            ) : (
+              <>
+                <Link className="nav-item nav-link" to="/">
+                  Home
+                </Link>
+                <Link className="nav-item nav-link" to="/signup">
+                  Signup
+                </Link>
+              </>
+            )}
+          </div>
         </div>
       </div>
     </nav>
@@ -53,3 +55,4 @@ function NavBar() {
 }
 
 export default NavBar;
+

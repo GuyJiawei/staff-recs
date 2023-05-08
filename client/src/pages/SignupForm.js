@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Container, Card, Form, Button, Alert } from 'react-bootstrap';
 import { useMutation } from "@apollo/client";
 import { CREATE_USER } from "../utils/mutations";
 import Auth from '../utils/auth';
@@ -46,95 +47,76 @@ const SignupForm = () => {
   };
 
   return (
-    <>
-    <div className="container">
-      <div className="row">
-        <div className="col-lg-10 col-xl-9 mx-auto">
-          <div id='signup-card' className="card flex-row my-5 border-0 shadow rounded-3 overflow-hidden">
-            <div className="card-img-left d-none d-md-flex">
-              {/* <!-- Background image for card set in CSS! --> */}
-            </div>
-            <div id='signup-card' className="card-body p-4 p-sm-5">
-              <h5 className="card-title text-center mb-5 fw-light fs-5">Signup</h5>
-              <form noValidate onSubmit={handleFormSubmit} validated={validated.toString()}>
+    <Container className="d-flex justify-content-center mt-5">
+      <Card className="shadow p-4 p-sm-5" style={{ minWidth: '400px', maxWidth: '600px' }}>
+        <h5 className="card-title text-center mb-5 fw-light fs-5">Signup</h5>
+        <Form noValidate onSubmit={handleFormSubmit} validated={validated}>
 
-                <div className="form-floating mb-3">
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="floatingInputName"
-                    placeholder="John Doe"
-                    name="name"
-                    value={userFormData.name}
-                    onChange={handleInputChange}
-                    required
-                  />
-                  <label htmlFor="floatingInputName">Name</label>
-                </div>
+          <Form.Group className="mb-3">
+            <Form.Label>Name</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="John Doe"
+              name="name"
+              value={userFormData.name}
+              onChange={handleInputChange}
+              required
+            />
+          </Form.Group>
 
-                <div className="form-floating mb-3">
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="floatingInputUsername"
-                    placeholder="myusername"
-                    name="username"
-                    value={userFormData.username}
-                    onChange={handleInputChange}
-                    required
-                  />
-                  <label htmlFor="floatingInputUsername">Username</label>
-                </div>
+          <Form.Group className="mb-3">
+            <Form.Label>Username</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="myusername"
+              name="username"
+              value={userFormData.username}
+              onChange={handleInputChange}
+              required
+            />
+          </Form.Group>
 
-                <div className="form-floating mb-3">
-                  <input
-                    type="email"
-                    className="form-control"
-                    id="floatingInputEmail"
-                    placeholder="name@example.com"
-                    name="email"
-                    value={userFormData.email}
-                    onChange={handleInputChange}
-                    required
-                  />
-                  <label htmlFor="floatingInputEmail">Email address</label>
-                </div>
+          <Form.Group className="mb-3">
+            <Form.Label>Email address</Form.Label>
+            <Form.Control
+              type="email"
+              placeholder="name@example.com"
+              name="email"
+              value={userFormData.email}
+              onChange={handleInputChange}
+              required
+            />
+          </Form.Group>
 
-                <hr/>
+          <hr/>
 
-                <div className="form-floating mb-3">
-                  <input
-                    type="password"
-                    className="form-control"
-                    id="floatingPassword"
-                    placeholder="Password"
-                    name="password"
-                    value={userFormData.password}
-                    onChange={handleInputChange}
-                    required
-                  />
-                  <label htmlFor="floatingPassword">Password</label>
-                </div>
+          <Form.Group className="mb-3">
+            <Form.Label>Password</Form.Label>
+            <Form.Control
+              type="password"
+              placeholder="Password"
+              name="password"
+              value={userFormData.password}
+              onChange={handleInputChange}
+              required
+            />
+          </Form.Group>
 
-                <div className="d-grid mb-2">
-                  <button className="btn btn-lg btn-primary btn-login fw-bold text-uppercase" type="submit">Register</button>
-                </div>
-
-                <hr className="my-4"/>
-
-                {showAlert && (
-                  <div className="alert alert-danger" role="alert">
-                    Something went wrong with your registration!
-                  </div>
-                )}
-
-              </form>
-            </div>
+          <div className="d-grid mb-2">
+            <Button className="btn-lg fw-bold text-uppercase" type="submit">Register</Button>
           </div>
-        </div>
-      </div>
-    </div>
-  </>
+
+          <hr className="my-4"/>
+
+          {showAlert && (
+            <Alert variant="danger">
+              Something went wrong with your registration!
+            </Alert>
+          )}
+
+        </Form>
+      </Card>
+    </Container>
   );
 };
 
