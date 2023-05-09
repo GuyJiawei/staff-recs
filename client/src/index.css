@@ -13,7 +13,8 @@ body {
   margin: auto;
   padding: 1rem;
   overflow: hidden;
-  background-color: #444;
+  background-image: url('../src/assets/movie-background-collage.jpg');
+  background-size: cover;
   border-radius: 5px;
 }
 
