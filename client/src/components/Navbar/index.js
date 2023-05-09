@@ -19,8 +19,13 @@ function NavBar() {
         </Link>
         <div className="navbar-collapse" id="navbarNavAltMarkup">
           <div className="navbar-nav ml-auto">
-            {loggedIn ? (
               <>
+                <Link className="nav-item nav-link" to="/">
+                  Home
+                </Link>
+                <Link className="nav-item nav-link" to="/signup">
+                  Signup
+                </Link>
                 <Link className="nav-item nav-link" to="/profile">
                   Profile
                 </Link>
@@ -31,16 +36,6 @@ function NavBar() {
                   Logout
                 </Link>
               </>
-            ) : (
-              <>
-                <Link className="nav-item nav-link" to="/">
-                  Home
-                </Link>
-                <Link className="nav-item nav-link" to="/signup">
-                  Signup
-                </Link>
-              </>
-            )}
           </div>
         </div>
       </div>
